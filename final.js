@@ -1,4 +1,3 @@
-
 let poseNet;
 let poses = [];
 
@@ -25,6 +24,7 @@ var colors = [[242,227, 210], [167, 13, 53], [134, 46, 166], [139, 104, 68], [21
 
 function preload(){
     song3 = loadSound('music/looks.mp3');
+
     
 
 }
@@ -35,6 +35,12 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 
   background(colors[0][0],colors[0][1],colors[0][2]);
+
+
+  mgr = new SceneManager();
+
+  mgr.addScene ( Animation1 );
+  mgr.addScene ( Animation2 );
 
   video = createCapture(VIDEO);
   // video = createVideo('dancing.mp4', vidLoad);
@@ -62,6 +68,8 @@ function setup() {
   ellipseMode(CENTER);
 
   frameRate(18.8);
+
+  mgr.showNextScene();
 }
 
 function modelReady() {
@@ -102,16 +110,71 @@ var hold = 'false';
 
 
 function draw() {
+
+    mgr.draw();
     //comment out the two image(video, 0, 0, width, height) to not show video element
   //   image(video, 0, 0, width, height);
     translate(width,0); // move to far corner
     scale(-1.0,1.0);    // flip x-axis backwards
   //   image(video, 0, 0, width, height);
   // We can call both functions to draw all keypoints and the skeletons
-  drawKeypoints();
+//   drawKeypoints();
   // drawSkeleton();
 //   drawMiddle();
 }
+
+function Animation1(){
+    var textX;
+    var textY;
+
+    this.enter = function(){
+        textX = 10;
+        textY = 0;
+
+        background(231, 187, 65);
+        textAlign(CENTER);
+        textFont('Merriweather');
+        rectMode(CENTER);
+
+        fill(251, 207, 85);
+        noStroke();
+        rect(windowWidth/2, windowHeight/2, windowWidth-20, windowHeight-20);
+
+        fill(57, 62, 65)
+        textSize(35);
+        text("In 2000 there were 4,710,746 New Jersians registered to vote.", width / 2, height / 2 - 100);
+        textSize(45);
+        text("Today, there are nearly 6,000,000.\n", width / 2, height / 2);
+        textSize(35);
+        text("How has New Jersey's electorate changed in the past two decades?\n", width / 2, height / 2 + 100);
+        
+        
+        textSize(14);
+        text("click to find out\n\n", width/2, height - 20);
+    }
+
+
+    this.mousePressed = function(){
+        this.sceneManager.showNextScene();
+    }
+}
+
+// explanation scene
+function Animation2()
+{
+    this.draw = function()
+    {
+        drawKeypoints();
+    }
+
+    this.mousePressed = function(){
+        this.sceneManager.showNextScene();
+    }
+
+    
+
+}
+
 
 // A function to draw ellipses over the detected keypoints
 function drawKeypoints()  {
