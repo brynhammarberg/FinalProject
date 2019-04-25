@@ -1,0 +1,21 @@
+//drawing the actual shape that changes with amplitude, volume, and pan
+    ellipse(mouseX, height/2, Math.abs(Math.abs((mouseX-630)/5)-165) + rms*random(500,2000)+(mouseY*.1), 
+            (Math.abs(Math.abs((mouseX-630)/5)-165) + rms*2000)+(mouseY*.1));
+
+
+ellipse(
+    mouseX: horizontal ellipse position is based on where the mouse is on the x-axis
+
+    height/2: vertical ellipse position is stuck in the middle of the screen
+
+    Math.abs(Math.abs((mouseX-630)/5)-165) + ... : sets original width of ellipse to the position of
+                                                   the mouse's x-axis position(pan) with base size
+                                                   of 165 and tapered on either end to 39
+    ... + rms*random(500,2000)+(mouseY*.1): changes width of ellipse based on amplitude (changed
+                                            randomly) and position of mouse on y-axis (volume)
+
+    Math.abs(Math.abs((mouseX-630)/5)-165) + ... : sets original height of ellipse to the position of
+                                                   the mouse's x-axis position(pan) with base size
+                                                   of 165 and tapered on either end to 39
+    ... + rms*random(500,2000)+(mouseY*.1): changes height of ellipse based on amplitude (changed
+                                            randomly) and position of mouse on y-axis (volume)
